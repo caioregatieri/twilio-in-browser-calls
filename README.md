@@ -1,21 +1,21 @@
 # twilio-in-browser-calls
 
-# set virtual enviroument
-$ python3 -m venv backend/venv
+## set virtual enviroument
+$ python3 -m venv venv
 $ source venv/bin/activate
 
-# install dependencies
+## install dependencies
 $ pip install twilio flask python-dotenv
 
-# cp .env file
-$ cp backend/.env.example backend/.env
+## cp .env file
+$ cp .env.example .env
 
-# start backend
+## start backend
 $ cd backend
 $ python3 main.py
 
-# in another console start ngrok
+## in another console start ngrok
 $ ngrok http 3000
 
-# twilio documentation
+## twilio documentation
 https://www.twilio.com/blog/make-receive-phone-calls-browser-twilio-programmable-voice-python-javascript

@@ -17,13 +17,13 @@ api_key_secret = os.environ['TWILIO_API_KEY_SECRET']
 twiml_app_sid = os.environ['TWIML_APP_SID']
 twilio_number = os.environ['TWILIO_NUMBER']
 
-app = Flask(__name__, template_folder='../frontend/templates')
+app = Flask(__name__)
 
 @app.route('/')
 def home():
-    template_dir = os.path.abspath('../frontend/templates/home.html')
+    # template_dir = os.path.abspath('./templates/home.html')
     return render_template(
-        template_dir,
+        'home.html',
         title="In browser calls",
     )
 
