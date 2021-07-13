@@ -62,5 +62,16 @@ def call():
 
     return ''
 
+@app.route('/fallback', methods=['POST'])
+def call():
+    p.pprint(request.form)
+
+    return ''
+
+@app.route('/status_callback', methods=['POST'])
+def call():
+    p.pprint(request.form)
+    return ''
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=3000, debug=True)

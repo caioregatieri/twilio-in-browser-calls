@@ -10,8 +10,7 @@ $ pip install twilio flask python-dotenv
 ## cp .env file
 $ cp .env.example .env
 
-## start backend
-$ cd backend
+## start
 $ python3 main.py
 
 ## in another console start ngrok
