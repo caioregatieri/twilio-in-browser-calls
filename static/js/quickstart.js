@@ -1,12 +1,15 @@
-$(function () {
+﻿$(function () {
   var speakerDevices   = document.getElementById('speaker-devices');
   var ringtoneDevices  = document.getElementById('ringtone-devices');
   var outputVolumeBar  = document.getElementById('output-volume');
   var inputVolumeBar   = document.getElementById('input-volume');
   var volumeIndicators = document.getElementById('volume-indicators');
 
+  var tokenUrl = 'https://4f6b9551b572.ngrok.io/token';
+  var tokenTtl = 1000 * 60 * 15; // 15 minutos
+
   log('Requesting Capability Token...');
-  $.getJSON('https://683955d21d8b.ngrok.io/token')
+  $.getJSON(tokenUrl)
     //Paste URL HERE
     .done(function (data) {
       log('Got a token.');
@@ -59,6 +62,14 @@ $(function () {
       if (Twilio.Device.audio.isSelectionSupported) {
         document.getElementById('output-selection').style.display = 'block';
       }
+
+      setInterval(function() {
+        $.getJSON(tokenUrl)
+        .done(function(data) {
+          Twilio.Device.updateToken(data.token);
+          log('Update token.');
+        })
+      }, tokenTtl);
     })
     .fail(function () {
       log('Could not get a token from server!');

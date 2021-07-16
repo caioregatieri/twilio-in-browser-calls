@@ -4,7 +4,8 @@ from flask import request
 from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import VoiceGrant
 from twilio.twiml.voice_response import VoiceResponse, Dial
- 
+
+from flask_cors import CORS 
 from dotenv import load_dotenv
 import os
 import pprint as p
@@ -18,17 +19,18 @@ twiml_app_sid = os.environ['TWIML_APP_SID']
 twilio_number = os.environ['TWILIO_NUMBER']
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def home():
     # template_dir = os.path.abspath('./templates/home.html')
     return render_template(
-        'home.html',
+        'index.html',
         title="In browser calls",
     )
 
 @app.route('/token', methods=['GET'])
-def get_token():
+def token():
     identity = twilio_number
     outgoing_application_sid = twiml_app_sid
 
@@ -49,8 +51,10 @@ def get_token():
 
     return response
 
+#https://demo.twilio.com/welcome/voice/
+
 @app.route('/handle_calls', methods=['POST'])
-def call():
+def handle_calls():
     p.pprint(request.form)
     response = VoiceResponse()
     dial = Dial(callerId=twilio_number)
@@ -63,14 +67,15 @@ def call():
     return ''
 
 @app.route('/fallback', methods=['POST'])
-def call():
+def fallback():
     p.pprint(request.form)
 
     return ''
 
 @app.route('/status_callback', methods=['POST'])
-def call():
+def status_callback():
     p.pprint(request.form)
+    
     return ''
 
 if __name__ == "__main__":
